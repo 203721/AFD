@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='styles/front.css')}}"
+    />
+    <script
+      src="https://kit.fontawesome.com/10a83cea79.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        setTimeout(function() {
+          $(".alert").fadeOut(600);
+        }, 5000);
+      });
+    </script>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(category_filter=["notify"]) %} 
+      {% if messages %} 
+        {% for message in messages %}
+          <div class="alert"><div>{{message}}</div></div>
+        {% endfor %} 
+      {% endif %} 
+    {% endwith %}
+    <header class="header">
+      <div class="header-container">
+        <nav class="nav">
+          <div class="nav-logo">
+            <a href="#" class="nav-logo__link" title="logo"
+              ><object
+                class="nav-logo__image"
+                data="{{url_for('static',filename='images/logo.png')}}"
+              ></object
+              >Softness</a
+            >
+          </div>
+          <div class="nav-menu">
+            <ul class="nav-menu__item">
+              <li>
+                <a href="https://github.com/203721/AFD" class="nav-menu__link"
+                  ><i class="fa-brands fa-github"></i>&nbsp;Github</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="hero">
+          <div class="hero-text">
+            <h1 class="hero-text__main">Obtén enlaces externos,</h1>
+            <p class="hero-text__subs">de cualquier página.</p>
+            <div class="hero-btn">
+              <form class="form" method="POST">
+                <input
+                  {% with messages = get_flashed_messages(category_filter=["text"]) %} 
+                    {% if messages %} 
+                      {% for message in messages %}
+                        value = {{message}}
+                      {% endfor %} 
+                    {% endif %} 
+                  {% endwith %}
+                  class="form__input"
+                  name="url"
+                  type="text"
+                  placeholder="Pega aquí tu URL :)"
+                />
+                <input class="btn" type="submit" value="Obtener" />
+              </form>
+            </div>
+          </div>
+          <div class="hover-animation">
+            <div class="hover-animation__image">
+              <figure>
+                <img src="{{url_for('static',filename='images/chain.png')}}" />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-text">
+          <p>Bryan Alexander Morales Roblero</p>
+          <h3>AFD - Extractor de URL's externos</h3>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
