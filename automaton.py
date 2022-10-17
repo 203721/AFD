@@ -67,7 +67,6 @@ def executeAutomaton(stringLine):
     url = ""
     result = []
     valid = []
-    invalid = []
 
     for c in stringLine:
         state = graph[actualState]
@@ -91,9 +90,11 @@ def executeAutomaton(stringLine):
             route = [initialState]
             actualState = initialState
             url = ""
-            invalid.append(c)
             continue
 
     if not valid:
-        result.append("Lo siento, no hay enlaces externos en esta página :(")
+        result.append("No se encontraron cadenas válidas")
+        valid.append("No hubieron transiciones válidas")
+    print(
+        f"\nAlfabeto: {alphabet}\nEstado inicial: {initialState}\nEstado final: {endState}\nCadenas válidas: {result}\nTransiciones válidas: {valid}\n")
     return result

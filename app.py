@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_file, redirect, flash, url_for, request
 from wtforms import Form, StringField, validators
 from bs4 import BeautifulSoup
+from os import remove, listdir
 import urllib.request
 import re
 import automaton
@@ -29,10 +30,20 @@ def generateFile(link):
         url = re.sub(clean, "", url)
         urls.append(url)
     with open(f"files/{title}.txt", "w") as file:
-        file.write(f"ENLACES EXTERNOS ENCONTRADOS DE \"{title}\"\n\n")
+        file.write(f"ENLACES EXTERNOS ENCONTRADOS EN \"{title}\"\n\n")
         for line in urls:
             file.write(f"{line}\n")
     return file
+
+
+def clean():
+    path = ""
+    files = "files/"
+    dir = listdir(files)
+    if dir:
+        for file in dir:
+            path = files + file
+            remove(path)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -54,6 +65,7 @@ def front():
             if data:
                 flash(data, 'text')
             return redirect(url_for('front'))
+    clean()
     return render_template('front.html')
 
 
