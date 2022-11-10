@@ -1,15 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
 
 :root {
-  --color-light-white: #ffffff;
-  --color-cold-white: #e4ebf5;
   --color-white: #f6f6f6;
+  --color-cold-white: #e4ebf5;
+  --color-light-white: #ffffff;
   --color-dark: #272727;
-  --color-purple: #6d5dfc;
-  --color-light-purple: #8abdff;
-  --color-dark-purple: #5b0eeb;
-  --color-grey: #808080;
+  --color-dark-mode: #35363a;
+  --color-grey: #868686;
   --color-dark-grey: #9baacf;
+  --color-purple: #6d5dfc;
+  --color-dark-purple: #5b0eeb;
+  --color-black-purple: #3d099e;
+  --color-light-purple: #8abdff;
   --color-light-grey-0: #c8d0e7;
   --color-light-grey-1: #bec8e4;
   --color-light-grey-2: #e4ebf5;
@@ -23,8 +25,12 @@
   --color-gradient-7: #6fba82;
   --shadow: 0.3rem 0.3rem 0.6rem var(--color-light-grey-0),
     -0.2rem -0.2rem 0.5rem var(--color-light-white);
+  --shadow-dark: 0.3rem 0.3rem 0.6rem var(--color-dark),
+    -0.2rem -0.2rem 0.5rem var(--color-dark-mode);
   --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--color-light-grey-0),
     inset -0.2rem -0.2rem 0.5rem var(--color-light-white);
+  --inner-shadow-dark: inset 0.2rem 0.2rem 0.5rem var(--color-dark),
+    inset -0.2rem -0.2rem 0.5rem var(--color-dark-mode);
   --border-width: 4px;
 }
 
@@ -54,6 +60,125 @@ body {
   color: var(--color-dark);
 }
 
+body::-webkit-scrollbar {
+  width: 0.65em;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--color-purple);
+}
+
+body::-webkit-scrollbar-corner {
+  background-color: none;
+}
+
+.dark-background {
+  background-color: var(--color-dark-mode) !important;
+}
+
+.dark-text {
+  color: var(--color-white) !important;
+}
+
+.dark-hover {
+  color: var(--color-white) !important;
+}
+
+.dark-hover:hover {
+  color: var(--color-purple) !important;
+}
+
+.dark-shadow {
+  box-shadow: var(--shadow-dark) !important;
+}
+
+.dark-shadows {
+  box-shadow: var(--shadow-dark) !important;
+  box-shadow: inset -0.2rem -0.2rem 1rem var(--color-dark-purple),
+    var(--shadow-dark) !important;
+}
+
+.dark-shadows:active {
+  box-shadow: inset 0.2rem 0.2rem 1rem var(--color-black-purple) !important;
+}
+
+.dark-inner {
+  box-shadow: var(--inner-shadow-dark) !important;
+}
+
+.dark-inner:focus {
+  box-shadow: var(--shadow-dark) !important;
+}
+
+.switch {
+  margin-right: 1.2em;
+}
+
+#mark {
+  display: none;
+}
+
+#mark:checked + #mark-label:before {
+  opacity: 1;
+}
+
+#mark:checked + #mark-label:after {
+  left: 57%;
+  background: var(--color-dark);
+}
+
+.switch-content {
+  width: 3.4rem;
+}
+
+#mark-label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 1.6rem;
+  box-shadow: var(--shadow);
+  background: var(--color-dark);
+  position: relative;
+  cursor: pointer;
+  border-radius: 1.6rem;
+}
+
+#mark-label:after {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--color-white);
+  transition: all 0.4s ease;
+}
+
+#mark-label:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-white);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.bar {
+  position: absolute;
+  width: 100%;
+  background-color: none;
+}
+
+#progress {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.8s, opacity 0.8s linear;
+  width: 0%;
+  height: 6px;
+  background-color: var(--color-dark-purple);
+}
+
 .header-container {
   padding: 0 1rem;
   margin: 0 auto;
@@ -80,8 +205,8 @@ body {
 .nav-logo__link {
   font-size: 1.7rem;
   font-weight: 700;
-  color: var(--color-dark);
   margin-left: 1.6em;
+  color: var(--color-dark);
 }
 
 .nav-logo__image {
@@ -209,6 +334,7 @@ body {
   padding: 3rem 0;
   background: var(--color-dark);
   color: var(--color-grey);
+  position: relative;
 }
 
 .footer-mobile {
@@ -251,7 +377,6 @@ body {
   left: 50%;
   margin-left: -6.5em;
   margin-top: 1.5em;
-  box-shadow: var(--shadow);
   text-shadow: 1px 1px 20px black;
   z-index: 1;
 }
@@ -346,5 +471,15 @@ body {
   .hover-animation__image img {
     max-width: 92%;
     opacity: 0.9;
+  }
+}
+
+@media only screen and (max-height: 370px) {
+  .footer-mobile {
+    display: unset;
+  }
+
+  .footer-desktop {
+    display: none;
   }
 }

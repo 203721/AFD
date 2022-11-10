@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Obten enlaces externos de cualquier pagina</title>
+    <title>Obtén enlaces externos de páginas - AFD</title>
     <link rel="shortcut icon" href="{{url_for('static',filename='images/logo.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
@@ -20,20 +20,44 @@
         }, 5000);
       });
     </script>
+    <script>
+      function update() {
+        var element = document.getElementById("progress");   
+        var width = 1;
+        var identity = setInterval(scene, 8);
+        function scene() {
+          if (width >= 100) {
+            clearInterval(identity);
+            element.style.visibility = 'hidden';
+            element.style.opacity = 0; 
+            element.style.transition = 'visibility 0s 0.8s, opacity 0.8s linear'; 
+          } else {
+            width += 0.5; 
+            element.style.width = width + '%'; 
+            element.style.visibility = 'visible';
+            element.style.opacity = 1; 
+            element.style.transition = 'opacity 0.8s linear'; 
+          }
+        }
+      }
+    </script>
   </head>
   <body>
-    {% with messages = get_flashed_messages(category_filter=["notify"]) %} 
+    {% with messages = get_flashed_messages(category_filter=["notify"]) %}
       {% if messages %} 
         {% for message in messages %}
           <div class="alert"><div>{{message}}</div></div>
         {% endfor %} 
       {% endif %} 
     {% endwith %}
+    <div class="bar">
+      <div id="progress"></div>
+    </div>
     <header class="header">
       <div class="header-container">
         <nav class="nav">
           <div class="nav-logo">
-            <a href="#" class="nav-logo__link" title="logo"
+            <a href="#" class="nav-logo__link" title="Recargar página de inicio"
               ><object
                 class="nav-logo__image"
                 data="{{url_for('static',filename='images/logo.png')}}"
@@ -43,6 +67,14 @@
           </div>
           <div class="nav-menu">
             <ul class="nav-menu__item">
+              <li>
+                <div class="switch">
+                  <div class="switch-content">
+                    <input id="mark" type="checkbox" onchange="dark()">
+                    <label id="mark-label" for="mark"></label>
+                  </div>
+                </div>
+              </li>
               <li>
                 <a href="https://github.com/203721/AFD/tree/Develop-Bryan" class="nav-menu__link"
                   ><i class="fa-brands fa-github"></i>&nbsp;Github</a
@@ -70,7 +102,7 @@
                   type="text"
                   placeholder="Pega aquí tu URL :)"
                 />
-                <input class="btn" type="submit" value="Obtener" />
+                <input onclick="update()" class="btn" type="submit" value="Obtener" />
               </form>
             </div>
           </div>
@@ -101,4 +133,40 @@
       </div>
     </footer>
   </body>
+  <script>
+    checkbox = document.getElementById("mark")
+    checkbox.checked = eval(window.localStorage.getItem(checkbox.id))
+    checkbox.addEventListener("change", function(){
+      window.localStorage.setItem(checkbox.id, checkbox.checked)
+    })
+    function dark() {
+      same1 = [];
+      const background = "dark-background";
+      const hover = "dark-hover";
+      const text = "dark-text";
+      const shadow = "dark-shadow";
+      const shadows = "dark-shadows";
+      const inner = "dark-inner";
+      var body = document.body;
+      body.classList.toggle(background);
+      var menu = document.getElementsByClassName("nav-menu__link");
+      menu[0].classList.toggle(hover);
+      var logo = document.getElementsByClassName("nav-logo__link");
+      var main = document.getElementsByClassName("hero-text__main");
+      var subs = document.getElementsByClassName("hero-text__subs");
+      same1.push(logo, main, subs);
+      same1.forEach(function(element){
+        element[0].classList.toggle(text);
+      })
+      var changer = document.getElementById("mark-label");
+      changer.classList.toggle(shadow);
+      var btn = document.getElementsByClassName("btn");
+      btn[0].classList.toggle(shadows);
+      var input = document.getElementsByClassName("form__input");
+      input[0].classList.toggle(inner);
+    }
+    if (checkbox.checked) {
+      dark()
+    }
+  </script>
 </html>
