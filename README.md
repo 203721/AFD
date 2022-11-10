@@ -8,3 +8,6 @@ a un enlace seguro, es decir, que el link sea HTTPS.
 `pip install Flask-WTF`
 
 `pip install beatifulsoup4`
+
+## Documentos
+https://drive.google.com/drive/folders/189CY3U41NcUQI3jg2VgpwsSkgp3svGFm?usp=sharing
